@@ -67,4 +67,294 @@
       hsl(var(--primary) / 0.03) 100%
     );
   }
+
+  /* Animações de ondas */
+  @keyframes wave {
+    0%, 100% {
+      transform: translateX(0) translateY(0);
+    }
+    25% {
+      transform: translateX(-2px) translateY(-3px);
+    }
+    50% {
+      transform: translateX(0) translateY(-6px);
+    }
+    75% {
+      transform: translateX(2px) translateY(-3px);
+    }
+  }
+
+  @keyframes floating {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(42, 157, 143, 0.3);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(42, 157, 143, 0.6);
+    }
+  }
+
+  @keyframes slideInWave {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.7);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(42, 157, 143, 0);
+    }
+  }
+
+  @keyframes waterflow {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 60px 0;
+    }
+  }
+
+  /* Classes de animação */
+  .animate-wave {
+    animation: wave 3s ease-in-out infinite;
+  }
+
+  .animate-floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s infinite;
+  }
+
+  /* Fundo com padrão de ondas */
+  .wave-background {
+    background-image:
+      linear-gradient(
+        135deg,
+        hsl(var(--primary) / 0.1) 0%,
+        hsl(var(--primary) / 0.05) 50%,
+        hsl(var(--primary) / 0.1) 100%
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        hsl(var(--primary) / 0.03) 2px,
+        hsl(var(--primary) / 0.03) 4px
+      );
+    background-size: 100% 100%, 60px 100%;
+    animation: waterflow 20s linear infinite;
+  }
+
+  /* Gradiente animado */
+  .gradient-animated {
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--primary) / 0.2),
+      hsl(187, 40%, 88% / 0.2),
+      hsl(var(--primary) / 0.2)
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Efeito de ondas em containers */
+  .wave-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wave-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 25 0, 50 10 T 100 10' fill='none' stroke='%232A9D8F' stroke-width='1' opacity='0.1'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    animation: waterflow 15s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Botões com efeito onda */
+  .btn-wave {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-wave::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .btn-wave:active::after {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Cards com efeito hover */
+  .card-wave {
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .card-wave::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(42, 157, 143, 0.1) 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .card-wave:hover::before {
+    opacity: 1;
+  }
+
+  .card-wave:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(42, 157, 143, 0.2);
+  }
+
+  /* Texto com efeito ondulante */
+  .text-wave {
+    display: inline-block;
+    animation: wave 0.6s ease-in-out infinite;
+  }
+
+  /* Links com sublinhado animado */
+  .link-animated {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .link-animated::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    transition: width 0.3s ease;
+  }
+
+  .link-animated:hover::after {
+    width: 100%;
+  }
+
+  /* Fundo com gradiente de água */
+  .water-gradient {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.15) 0%,
+      hsl(var(--primary) / 0.05) 100%
+    );
+  }
+
+  /* Efeito parallax suave */
+  .parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* Brilho de hover */
+  .hover-glow:hover {
+    filter: drop-shadow(0 0 8px rgba(42, 157, 143, 0.4));
+    transition: filter 0.3s ease;
+  }
+
+  /* Badge animado */
+  .badge-animated {
+    animation: slideInWave 0.5s ease-out;
+  }
+
+  /* Linha de separação animada */
+  .line-animated {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--primary) / 0.5) 50%,
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: waterflow 3s linear infinite;
+  }
 }
