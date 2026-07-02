@@ -31,15 +31,22 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* Hero com tema de ondas */}
-      <section className="relative py-16 md:py-28 overflow-hidden wave-background">
-        {/* Gradiente ondulado de fundo */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-primary/5" />
-        <div className="absolute inset-0 opacity-[0.08]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 25 0, 50 10 T 100 10' fill='none' stroke='%232A9D8F' stroke-width='2'/%3E%3C/svg%3E")`,
-          backgroundSize: '100px 20px',
-          animation: 'waterflow 20s linear infinite'
-        }} />
+      {/* Hero com fundo animado sofisticado */}
+      <section className="relative py-16 md:py-28 overflow-hidden animated-hero-bg hero-full-animated">
+        {/* Blobs flutuantes de fundo */}
+        <div className="animated-blob blob-1" />
+        <div className="animated-blob blob-2" />
+        <div className="animated-blob blob-3" />
+
+        {/* Glows de fundo */}
+        <div className="glow-circle glow-1" />
+        <div className="glow-circle glow-2" />
+
+        {/* Linhas animadas */}
+        <div className="absolute top-0 left-0 right-0 h-1 animated-line" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 animated-line" style={{animationDelay: '0.5s'}} />
+
+        {/* Conteúdo principal */}
         <div className="container max-w-4xl text-center relative z-10">
           <div className="flex justify-center mb-6 animate-floating">
             <div className="p-4 rounded-full bg-primary/10 animate-pulse-glow">
