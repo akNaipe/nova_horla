@@ -44,20 +44,20 @@ function Paginacao({ pagina, totalPaginas, baseUrl }: { pagina: number; totalPag
   return (
     <div className="flex items-center justify-center gap-2 mt-8">
       {pagina > 1 && (
-        <Link href={`${baseUrl}&pagina=${pagina - 1}`} className="p-2 rounded-md border hover:bg-accent">
+        <Link href={`${baseUrl}&pagina=${pagina - 1}`} className="p-2 rounded-md border link-underline hover:bg-accent transition-colors">
           <ChevronLeft className="h-4 w-4" />
         </Link>
       )}
       {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((p) => (
         <Link key={p} href={`${baseUrl}&pagina=${p}`}
-          className={`w-8 h-8 flex items-center justify-center rounded-md text-sm ${
-            p === pagina ? "bg-primary text-primary-foreground" : "border hover:bg-accent"
+          className={`w-8 h-8 flex items-center justify-center rounded-md text-sm transition-all duration-200 ${
+            p === pagina ? "bg-primary text-primary-foreground" : "border link-underline hover:bg-accent"
           }`}>
           {p}
         </Link>
       ))}
       {pagina < totalPaginas && (
-        <Link href={`${baseUrl}&pagina=${pagina + 1}`} className="p-2 rounded-md border hover:bg-accent">
+        <Link href={`${baseUrl}&pagina=${pagina + 1}`} className="p-2 rounded-md border link-underline hover:bg-accent transition-colors">
           <ChevronRight className="h-4 w-4" />
         </Link>
       )}
@@ -83,8 +83,8 @@ export default async function LojaPage({
   };
 
   return (
-    <div className="container max-w-6xl py-6">
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+    <div className="container max-w-6xl py-6 animate-fade-in">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6 animate-slide-up animate-stagger-1">
         <form method="GET" action="/loja" className="flex-1">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -95,16 +95,17 @@ export default async function LojaPage({
       </div>
 
       <div className="flex gap-6">
-        <aside className="hidden md:block w-40 shrink-0">
+        <aside className="hidden md:block w-40 shrink-0 animate-slide-right animate-stagger-2">
           <div className="text-xs text-muted-foreground mb-2 font-medium uppercase tracking-wide">Categorias</div>
           <div className="space-y-0.5">
             <Link href={montarUrl({ categoria: "", busca: "", ordenar: "" }).replace(/[?&]pagina=\d+/g, "")}
-              className={`block px-2 py-1 text-sm rounded ${!sp.categoria ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-muted"}`}>
+              className={`block px-2 py-1 text-sm rounded link-underline transition-all ${!sp.categoria ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-muted"}`}>
               Todos
             </Link>
-            {categorias.map((cat) => (
+            {categorias.map((cat, i) => (
               <Link key={cat.id} href={`/loja?categoria=${cat.id}`}
-                className={`block px-2 py-1 text-sm rounded ${sp.categoria === cat.id ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-muted"}`}>
+                className={`block px-2 py-1 text-sm rounded link-underline transition-all ${sp.categoria === cat.id ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-muted"}`}
+                style={{animationDelay: `${0.2 + i * 0.05}s`}}>
                 {cat.nome}
               </Link>
             ))}
@@ -112,20 +113,30 @@ export default async function LojaPage({
         </aside>
 
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-muted-foreground mb-3">{total} produto(s) - Página {pagina} de {totalPaginas}</p>
+          <p className="text-xs text-muted-foreground mb-3 animate-slide-up animate-stagger-3">{total} produto(s) - Página {pagina} de {totalPaginas}</p>
           {produtos.length > 0 ? (
             <>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {produtos.map((p) => <ProdutoCard key={p.id} produto={p} />)}
+                {produtos.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className="animate-slide-up card-hover"
+                    style={{animationDelay: `${0.3 + i * 0.08}s`}}
+                  >
+                    <ProdutoCard produto={p} />
+                  </div>
+                ))}
               </div>
-              <Paginacao pagina={pagina} totalPaginas={totalPaginas}
-                baseUrl={montarUrl({ pagina: String(pagina) }).replace(/pagina=\d+/, "pagina=PAG")} />
+              <div className="animate-slide-up animate-stagger-5">
+                <Paginacao pagina={pagina} totalPaginas={totalPaginas}
+                  baseUrl={montarUrl({ pagina: String(pagina) }).replace(/pagina=\d+/, "pagina=PAG")} />
+              </div>
             </>
           ) : (
-            <div className="text-center py-16 text-muted-foreground">
+            <div className="text-center py-16 text-muted-foreground animate-fade-in">
               <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
               <p className="text-sm">Nenhum produto encontrado</p>
-              <Link href="/loja" className="text-sm text-primary hover:underline mt-1 inline-block">Limpar filtros</Link>
+              <Link href="/loja" className="text-sm text-primary link-underline mt-1 inline-block">Limpar filtros</Link>
             </div>
           )}
         </div>

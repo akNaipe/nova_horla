@@ -157,15 +157,15 @@ export default function CheckoutPage() {
   if (itens.length === 0) return null;
 
   return (
-    <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+    <div className="container py-8 animate-fade-in">
+      <h1 className="text-3xl font-bold mb-8 animate-slide-up animate-stagger-1">Checkout</h1>
 
       <form onSubmit={handleFinalizar}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Formulário */}
           <div className="lg:col-span-2 space-y-6">
             {/* Dados do Cliente */}
-            <Card>
+            <Card className="animate-slide-up card-hover animate-stagger-2">
               <CardHeader>
                 <CardTitle>Dados do Cliente</CardTitle>
               </CardHeader>
@@ -177,7 +177,7 @@ export default function CheckoutPage() {
             </Card>
 
             {/* Endereço de Entrega */}
-            <Card>
+            <Card className="animate-slide-up card-hover animate-stagger-3">
               <CardHeader>
                 <CardTitle>Endereço de Entrega</CardTitle>
               </CardHeader>
@@ -218,12 +218,12 @@ export default function CheckoutPage() {
             </Card>
 
             {/* Pagamento */}
-            <Card>
+            <Card className="animate-slide-up card-hover animate-stagger-4">
               <CardHeader>
                 <CardTitle>Pagamento</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center gap-3 p-4 rounded-lg bg-blue-50 border border-blue-200">
+                <div className="flex items-center gap-3 p-4 rounded-lg bg-blue-50 border border-blue-200 animate-scale-in" style={{animationDelay: '0.5s'}}>
                   <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                     <svg className="h-6 w-6 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
@@ -239,17 +239,17 @@ export default function CheckoutPage() {
           </div>
 
           {/* Resumo */}
-          <div>
-            <Card>
+          <div className="animate-slide-right animate-stagger-3">
+            <Card className="card-hover sticky top-8">
               <CardHeader>
                 <CardTitle>Resumo do Pedido</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {itens.map((item) => (
-                  <div key={item.produto_id} className="flex gap-3">
-                    <div className="w-12 h-12 rounded bg-muted shrink-0 overflow-hidden relative">
+                {itens.map((item, i) => (
+                  <div key={item.produto_id} className="flex gap-3 animate-slide-up" style={{animationDelay: `${0.5 + i * 0.08}s`}}>
+                    <div className="w-12 h-12 rounded bg-muted shrink-0 overflow-hidden relative img-zoom-hover">
                       {item.imagem ? (
-                        <Image src={item.imagem} alt={item.nome} fill className="object-cover" sizes="48px" />
+                        <Image src={item.imagem} alt={item.nome} fill className="object-cover img-fade-in" sizes="48px" />
                       ) : null}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -263,20 +263,20 @@ export default function CheckoutPage() {
                     </p>
                   </div>
                 ))}
-                <Separator />
+                <Separator className="animate-slide-up" style={{animationDelay: `${0.5 + itens.length * 0.08}s`}} />
                 {cupomInfo && (
-                  <div className="flex justify-between text-sm text-green-400">
+                  <div className="flex justify-between text-sm text-green-400 animate-scale-in" style={{animationDelay: '0.8s'}}>
                     <span>Cupom ({cupomInfo.codigo})</span>
                     <span>-{formatCurrency(desconto)}</span>
                   </div>
                 )}
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between font-bold text-lg animate-slide-up" style={{animationDelay: '0.9s'}}>
                   <span>Total</span>
                   <span>{formatCurrency(total)}</span>
                 </div>
               </CardContent>
-              <div className="p-6 pt-0">
-                <Button type="submit" className="w-full" size="lg" disabled={loading}>
+              <div className="p-6 pt-0 animate-slide-up" style={{animationDelay: '1s'}}>
+                <Button type="submit" className="w-full btn-hover" size="lg" disabled={loading}>
                   {loading ? "Processando..." : "Finalizar Pedido"}
                 </Button>
               </div>

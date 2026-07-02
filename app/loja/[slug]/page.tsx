@@ -68,30 +68,30 @@ export default async function ProdutoDetalhePage({
   const desconto = temPromocao ? Math.round((1 - produto.preco_promocional! / produto.preco_venda) * 100) : 0;
 
   return (
-    <div className="container py-8">
-      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-        <Link href="/" className="hover:text-primary">Home</Link>
+    <div className="container py-8 animate-fade-in">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4 animate-slide-up animate-stagger-1">
+        <Link href="/" className="link-underline">Home</Link>
         <span>/</span>
-        <Link href="/loja" className="hover:text-primary">Loja</Link>
+        <Link href="/loja" className="link-underline">Loja</Link>
         <span>/</span>
         <span className="text-foreground font-medium truncate">{produto.nome}</span>
       </div>
 
-      <Link href="/loja" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-6">
+      <Link href="/loja" className="inline-flex items-center text-sm text-muted-foreground link-underline mb-6 animate-slide-up animate-stagger-2">
         <ChevronLeft className="h-4 w-4 mr-1" /> Voltar
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {/* Imagem + Galeria */}
-        <div>
-          <div className="aspect-square relative rounded-2xl overflow-hidden bg-muted border mb-3">
+        <div className="animate-slide-left animate-stagger-3">
+          <div className="aspect-square relative rounded-2xl overflow-hidden bg-muted border mb-3 img-zoom-hover">
             {produto.imagem_url ? (
-              <Image src={produto.imagem_url} alt={produto.nome} fill className="object-cover" sizes="50vw" priority />
+              <Image src={produto.imagem_url} alt={produto.nome} fill className="object-cover img-fade-in" sizes="50vw" priority />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-muted-foreground">Sem imagem</div>
             )}
             {temPromocao && (
-              <Badge className="absolute top-4 left-4 bg-red-500 text-white text-sm px-3 py-1 border-0">-{desconto}%</Badge>
+              <Badge className="absolute top-4 left-4 bg-red-500 text-white text-sm px-3 py-1 border-0 animate-scale-in">-{desconto}%</Badge>
             )}
           </div>
           {/* Miniaturas (placeholder) */}
@@ -110,15 +110,15 @@ export default async function ProdutoDetalhePage({
         </div>
 
         {/* Info */}
-        <div>
+        <div className="animate-slide-right animate-stagger-4">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">{produto.nome}</h1>
 
           {/* Estrelas */}
           {avaliacoesInfo && (
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-4 animate-slide-up" style={{animationDelay: '0.5s'}}>
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <Star key={n} className={`h-4 w-4 ${n <= Math.round(avaliacoesInfo.media) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground"}`} />
+                  <Star key={n} className={`h-4 w-4 transition-colors ${n <= Math.round(avaliacoesInfo.media) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground"}`} />
                 ))}
               </div>
               <span className="text-sm text-muted-foreground">{avaliacoesInfo.media} ({avaliacoesInfo.total})</span>
@@ -126,7 +126,7 @@ export default async function ProdutoDetalhePage({
           )}
 
           {/* Preço */}
-          <div className="flex items-baseline gap-3 mb-6">
+          <div className="flex items-baseline gap-3 mb-6 animate-slide-up" style={{animationDelay: '0.6s'}}>
             {temPromocao ? (
               <>
                 <span className="text-3xl md:text-4xl font-bold text-red-600">{formatCurrency(produto.preco_promocional!)}</span>
@@ -138,13 +138,15 @@ export default async function ProdutoDetalhePage({
           </div>
 
           {/* Variações */}
-          <VariacoesWrapper produtoId={produto.id} precoBase={produto.preco_venda} />
+          <div className="animate-slide-up" style={{animationDelay: '0.7s'}}>
+            <VariacoesWrapper produtoId={produto.id} precoBase={produto.preco_venda} />
+          </div>
 
           {/* Estoque */}
-          <div className="mb-6">
+          <div className="mb-6 animate-slide-up" style={{animationDelay: '0.8s'}}>
             {produto.quantidade_estoque > 0 ? (
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500" />
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse-ring" />
                 <span className="text-sm text-green-500 font-medium">Em estoque ({produto.quantidade_estoque} unid.)</span>
               </div>
             ) : (
@@ -155,23 +157,34 @@ export default async function ProdutoDetalhePage({
             )}
           </div>
 
-          <AdicionarAoCarrinho produto={produto} />
+          <div className="animate-slide-up" style={{animationDelay: '0.9s'}}>
+            <AdicionarAoCarrinho produto={produto} />
+          </div>
 
-          <div className="space-y-3 mt-6 text-sm text-muted-foreground">
-            {[{ icon: Truck, text: "Frete grátis para todo Brasil" }, { icon: Shield, text: "Compra 100% segura" }, { icon: RotateCcw, text: "Devolução em até 7 dias" }].map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-3"><Icon className="h-4 w-4" /><span>{text}</span></div>
+          <div className="space-y-3 mt-6 text-sm text-muted-foreground animate-slide-up" style={{animationDelay: '1s'}}>
+            {[{ icon: Truck, text: "Frete grátis para todo Brasil" }, { icon: Shield, text: "Compra 100% segura" }, { icon: RotateCcw, text: "Devolução em até 7 dias" }].map(({ icon: Icon, text }, i) => (
+              <div key={text} className="flex items-center gap-3 hover-scale transition-transform" style={{animationDelay: `${1 + i * 0.05}s`}}>
+                <Icon className="h-4 w-4 hover-scale transition-transform" />
+                <span>{text}</span>
+              </div>
             ))}
           </div>
 
           {produto.descricao && (
-            <><Separator className="my-6" /><div><h2 className="font-semibold mb-3">Descrição</h2><p className="text-muted-foreground whitespace-pre-wrap">{produto.descricao}</p></div></>
+            <div className="animate-slide-up" style={{animationDelay: '1.2s'}}>
+              <Separator className="my-6" />
+              <div>
+                <h2 className="font-semibold mb-3">Descrição</h2>
+                <p className="text-muted-foreground whitespace-pre-wrap">{produto.descricao}</p>
+              </div>
+            </div>
           )}
         </div>
       </div>
 
       {/* Avaliações */}
-      <Separator className="my-10" />
-      <div className="max-w-2xl">
+      <Separator className="my-10 animate-slide-up" style={{animationDelay: '1.3s'}} />
+      <div className="max-w-2xl animate-slide-up" style={{animationDelay: '1.4s'}}>
         <Avaliacoes produtoId={produto.id} />
         <div className="mt-6">
           <FormAvaliacao produtoId={produto.id} />
@@ -181,11 +194,19 @@ export default async function ProdutoDetalhePage({
       {/* Produtos Relacionados */}
       {relacionados.length > 0 && (
         <>
-          <Separator className="my-10" />
-          <div>
+          <Separator className="my-10 animate-slide-up" style={{animationDelay: '1.5s'}} />
+          <div className="animate-slide-up" style={{animationDelay: '1.6s'}}>
             <h2 className="text-xl font-bold mb-6">Produtos Relacionados</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {relacionados.map((p) => <ProdutoCard key={p.id} produto={p} />)}
+              {relacionados.map((p, i) => (
+                <div
+                  key={p.id}
+                  className="animate-slide-up card-hover"
+                  style={{animationDelay: `${1.7 + i * 0.08}s`}}
+                >
+                  <ProdutoCard produto={p} />
+                </div>
+              ))}
             </div>
           </div>
         </>

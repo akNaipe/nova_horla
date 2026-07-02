@@ -80,30 +80,30 @@ export default function CarrinhoPage() {
 
   if (itens.length === 0) {
     return (
-      <div className="container py-16 text-center">
-        <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-        <h1 className="text-2xl font-bold mb-2">Carrinho Vazio</h1>
-        <p className="text-muted-foreground mb-6">Nenhum produto no carrinho ainda.</p>
-        <Link href="/loja">
-          <Button>Ir para Loja</Button>
+      <div className="container py-16 text-center animate-fade-in">
+        <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground mb-4 animate-bounce-subtle" />
+        <h1 className="text-2xl font-bold mb-2 animate-slide-up animate-stagger-1">Carrinho Vazio</h1>
+        <p className="text-muted-foreground mb-6 animate-slide-up animate-stagger-2">Nenhum produto no carrinho ainda.</p>
+        <Link href="/loja" className="animate-slide-up animate-stagger-3">
+          <Button className="btn-hover">Ir para Loja</Button>
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-8">Carrinho de Compras</h1>
+    <div className="container py-8 animate-fade-in">
+      <h1 className="text-3xl font-bold mb-8 animate-slide-up animate-stagger-1">Carrinho de Compras</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Lista de Itens */}
         <div className="lg:col-span-2 space-y-4">
-          {itens.map((item) => (
-            <Card key={item.produto_id}>
+          {itens.map((item, i) => (
+            <Card key={item.produto_id} className="animate-slide-up card-hover" style={{animationDelay: `${0.2 + i * 0.08}s`}}>
               <CardContent className="p-4 flex gap-4">
-                <div className="w-24 h-24 rounded-md bg-muted relative shrink-0 overflow-hidden">
+                <div className="w-24 h-24 rounded-md bg-muted relative shrink-0 overflow-hidden img-zoom-hover">
                   {item.imagem ? (
-                    <Image src={item.imagem} alt={item.nome} fill className="object-cover" sizes="96px" />
+                    <Image src={item.imagem} alt={item.nome} fill className="object-cover img-fade-in" sizes="96px" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
                       Sem img
@@ -113,7 +113,7 @@ export default function CarrinhoPage() {
 
                 <div className="flex-1 min-w-0">
                   {item.slug && !item.slug.startsWith("http") ? (
-                    <Link href={`/loja/${item.slug}`} className="font-semibold hover:text-primary line-clamp-1">
+                    <Link href={`/loja/${item.slug}`} className="font-semibold link-underline line-clamp-1">
                       {item.nome}
                     </Link>
                   ) : (
@@ -126,7 +126,7 @@ export default function CarrinhoPage() {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-8 w-8"
+                        className="h-8 w-8 btn-hover"
                         onClick={() => atualizarQuantidade(item.produto_id, item.quantidade - 1)}
                       >
                         -
@@ -135,7 +135,7 @@ export default function CarrinhoPage() {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-8 w-8"
+                        className="h-8 w-8 btn-hover"
                         onClick={() => atualizarQuantidade(item.produto_id, item.quantidade + 1)}
                       >
                         +
@@ -149,7 +149,7 @@ export default function CarrinhoPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-destructive"
+                      className="h-8 w-8 text-destructive btn-hover"
                       onClick={() => removerItem(item.produto_id)}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -162,8 +162,8 @@ export default function CarrinhoPage() {
         </div>
 
         {/* Resumo */}
-        <div>
-          <Card>
+        <div className="animate-slide-right animate-stagger-2">
+          <Card className="card-hover">
             <CardHeader>
               <CardTitle>Resumo</CardTitle>
             </CardHeader>
@@ -171,7 +171,7 @@ export default function CarrinhoPage() {
               {/* Cupom */}
               <div className="space-y-2">
                 {cupomInfo ? (
-                  <div className="flex items-center justify-between p-2 rounded bg-green-500/10 border border-green-500/20">
+                  <div className="flex items-center justify-between p-2 rounded bg-green-500/10 border border-green-500/20 animate-scale-in">
                     <div className="flex items-center gap-2">
                       <Tag className="h-4 w-4 text-green-400" />
                       <div>
@@ -181,13 +181,13 @@ export default function CarrinhoPage() {
                         </p>
                       </div>
                     </div>
-                    <button onClick={removerCupom} className="text-[10px] text-muted-foreground hover:text-foreground">Remover</button>
+                    <button onClick={removerCupom} className="text-[10px] text-muted-foreground hover:text-foreground link-underline">Remover</button>
                   </div>
                 ) : (
                   <div className="flex gap-2">
                     <Input value={cupomCodigo} onChange={(e) => setCupomCodigo(e.target.value)}
                       placeholder="Cupom de desconto" className="h-9 text-sm uppercase" />
-                    <Button variant="outline" size="sm" onClick={aplicarCupom} disabled={cupomLoading} className="h-9">
+                    <Button variant="outline" size="sm" onClick={aplicarCupom} disabled={cupomLoading} className="h-9 btn-hover">
                       {cupomLoading ? "..." : "OK"}
                     </Button>
                   </div>
@@ -219,7 +219,7 @@ export default function CarrinhoPage() {
                 if (cupomInfo) localStorage.setItem("cupom", JSON.stringify(cupomInfo));
                 else localStorage.removeItem("cupom");
               }}>
-                <Button className="w-full" size="lg">
+                <Button className="w-full btn-hover" size="lg">
                   Finalizar Pedido
                 </Button>
               </Link>
@@ -227,7 +227,7 @@ export default function CarrinhoPage() {
           </Card>
 
           <Link href="/loja" className="block mt-4">
-            <Button variant="ghost" className="w-full">
+            <Button variant="ghost" className="w-full link-underline">
               Continuar Comprando
             </Button>
           </Link>
