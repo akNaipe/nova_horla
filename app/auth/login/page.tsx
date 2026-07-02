@@ -48,7 +48,7 @@ function LoginForm() {
   return (
     <form onSubmit={handleLogin}>
       <CardContent className="space-y-4">
-        <div className="space-y-2">
+        <div className="space-y-2 animate-slide-up animate-stagger-1">
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
@@ -59,7 +59,7 @@ function LoginForm() {
             required
           />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 animate-slide-up animate-stagger-2">
           <Label htmlFor="password">Senha</Label>
           <Input
             id="password"
@@ -72,12 +72,12 @@ function LoginForm() {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col gap-4">
-        <Button type="submit" className="w-full" disabled={loading}>
+        <Button type="submit" className="w-full btn-hover animate-slide-up animate-stagger-3" disabled={loading}>
           {loading ? "Entrando..." : "Entrar"}
         </Button>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground animate-slide-up animate-stagger-4">
           Não tem conta?{" "}
-          <Link href="/auth/cadastro" className="text-primary hover:underline">
+          <Link href="/auth/cadastro" className="text-primary link-underline">
             Cadastre-se
           </Link>
         </p>
@@ -88,13 +88,13 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="container max-w-md mx-auto py-12">
-      <Card>
-        <CardHeader>
+    <div className="container max-w-md mx-auto py-12 animate-fade-in">
+      <Card className="card-hover">
+        <CardHeader className="animate-slide-up animate-stagger-1">
           <CardTitle>Entrar</CardTitle>
           <CardDescription>Faça login na sua conta</CardDescription>
         </CardHeader>
-        <Suspense fallback={<div className="p-6 text-center text-muted-foreground">Carregando...</div>}>
+        <Suspense fallback={<div className="p-6 text-center text-muted-foreground animate-pulse">Carregando...</div>}>
           <LoginForm />
         </Suspense>
       </Card>

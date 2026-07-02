@@ -62,26 +62,26 @@ export default async function AdminDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-slide-up animate-stagger-1">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="text-sm text-muted-foreground">Visão geral da sua loja</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/admin/produtos/novo"><Button size="sm">+ Novo Produto</Button></Link>
-          <Link href="/admin/pedidos"><Button variant="outline" size="sm">Gerenciar Pedidos</Button></Link>
+          <Link href="/admin/produtos/novo"><Button size="sm" className="btn-hover">+ Novo Produto</Button></Link>
+          <Link href="/admin/pedidos"><Button variant="outline" size="sm" className="btn-hover">Gerenciar Pedidos</Button></Link>
         </div>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-        {cards.map((c) => {
+        {cards.map((c, i) => {
           const Icon = c.icon;
           return (
-            <Card key={c.title}>
+            <Card key={c.title} className="animate-slide-up card-hover" style={{animationDelay: `${0.2 + i * 0.08}s`}}>
               <CardHeader className="pb-2 flex flex-row items-center justify-between">
                 <CardTitle className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">{c.title}</CardTitle>
-                <Icon className={`h-4 w-4 ${c.color}`} />
+                <Icon className={`h-4 w-4 transition-colors ${c.color}`} />
               </CardHeader>
               <CardContent>
                 <div className="text-lg font-bold">{c.value}</div>
@@ -98,11 +98,11 @@ export default async function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="animate-slide-up card-hover animate-stagger-2" style={{animationDelay: '0.6s'}}>
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium flex items-center gap-2"><Clock className="h-4 w-4" /> Pedidos Recentes</CardTitle>
-              <Link href="/admin/pedidos" className="text-xs text-primary hover:underline">Ver todos</Link>
+              <Link href="/admin/pedidos" className="text-xs text-primary link-underline">Ver todos</Link>
             </div>
           </CardHeader>
           <CardContent className="p-0">
@@ -110,11 +110,11 @@ export default async function AdminDashboardPage() {
               <p className="text-sm text-muted-foreground p-4">Nenhum pedido ainda.</p>
             ) : (
               <div className="divide-y">
-                {d.pedidosRecentes.map((p) => (
-                  <div key={p.id} className="flex items-center justify-between px-4 py-3 hover:bg-accent/30 transition-colors">
+                {d.pedidosRecentes.map((p, i) => (
+                  <div key={p.id} className="flex items-center justify-between px-4 py-3 hover:bg-accent/30 transition-colors animate-slide-up" style={{animationDelay: `${0.7 + i * 0.05}s`}}>
                     <div>
-                      <Link href={`/pedidos/${p.id}`} className="text-sm font-medium hover:text-primary">#{p.id.slice(0, 8)}</Link>
-                      <p className="text-[11px] text-muted-foreground">{p.cliente?.[0]?.nome || "—"}</p>
+                      <Link href={`/pedidos/${p.id}`} className="text-sm font-medium link-underline">#{p.id.slice(0, 8)}</Link>
+                      <p className="text-[11px] text-muted-foreground">{(p.cliente as unknown as Array<{ nome: string }>)?.[0]?.nome || "—"}</p>
                     </div>
                     <div className="text-right flex items-center gap-3">
                       <Badge className={`${statusCfg[p.status]?.color || "bg-gray-500/20"} border-0 text-[10px]`}>{statusCfg[p.status]?.label || p.status}</Badge>
