@@ -1,11 +1,11 @@
 {
-  "name": "Nova Loja",
-  "short_name": "Nova Loja",
-  "description": "Os melhores produtos com os melhores preços",
+  "name": "Nova Horla - Onda Mar",
+  "short_name": "Nova Horla",
+  "description": "Produtos com a energia do mar — frescor, estilo e qualidade",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#f5fafb",
+  "theme_color": "#2A9D8F",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",

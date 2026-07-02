@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ProdutoCard } from "@/components/produtos/produto-card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
-import { ShoppingBag, ArrowRight } from "lucide-react";
+import { Waves, ArrowRight, Droplets, ShoppingBag } from "lucide-react";
 
 async function getProdutos() {
   const supabase = await createClient();
@@ -31,21 +31,32 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* Hero simplificado */}
-      <section className="py-12 md:py-20">
-        <div className="container max-w-4xl text-center">
+      {/* Hero com tema de ondas */}
+      <section className="relative py-16 md:py-28 overflow-hidden">
+        {/* Gradiente ondulado de fundo */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-primary/5" />
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 25 0, 50 10 T 100 10' fill='none' stroke='%232A9D8F' stroke-width='2'/%3E%3C/svg%3E")`,
+          backgroundSize: '100px 20px',
+        }} />
+        <div className="container max-w-4xl text-center relative z-10">
+          <div className="flex justify-center mb-6">
+            <div className="p-4 rounded-full bg-primary/10">
+              <Waves className="h-10 w-10 text-primary" />
+            </div>
+          </div>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            Bem-vindo à <span className="text-primary">Nova Loja</span>
+            Bem-vindo à <span className="text-primary">Nova Horla</span>
           </h1>
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-6">
-            Produtos selecionados com preços justos e entrega rápida.
+            Produtos com a energia do mar. Frescor, estilo e qualidade que fluem como as ondas.
           </p>
           <div className="flex gap-3 justify-center">
             <Link href="/loja">
-              <Button>Ver Produtos <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
+              <Button size="lg">Ver Produtos <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
             </Link>
             <Link href="/auth/cadastro">
-              <Button variant="outline">Criar Conta</Button>
+              <Button variant="outline" size="lg">Criar Conta</Button>
             </Link>
           </div>
         </div>
@@ -93,24 +104,28 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* Info minimalista */}
-      <section className="border-t">
+      {/* Info com ícones de onda */}
+      <section className="border-t wave-divider">
         <div className="container max-w-4xl py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
             <div className="p-3">
-              <p className="font-medium">🚚 Frete Grátis</p>
+              <Droplets className="h-5 w-5 mx-auto mb-1.5 text-primary" />
+              <p className="font-medium">Frete Grátis</p>
               <p className="text-muted-foreground text-xs">Acima de R$ 99</p>
             </div>
             <div className="p-3">
-              <p className="font-medium">🔒 Seguro</p>
-              <p className="text-muted-foreground text-xs">Compra protegida</p>
+              <Droplets className="h-5 w-5 mx-auto mb-1.5 text-primary" />
+              <p className="font-medium">Compra Segura</p>
+              <p className="text-muted-foreground text-xs">Dados protegidos</p>
             </div>
             <div className="p-3">
-              <p className="font-medium">💳 Parcelamento</p>
+              <Droplets className="h-5 w-5 mx-auto mb-1.5 text-primary" />
+              <p className="font-medium">Parcelamento</p>
               <p className="text-muted-foreground text-xs">Em até 12x</p>
             </div>
             <div className="p-3">
-              <p className="font-medium">📦 Entrega</p>
+              <Droplets className="h-5 w-5 mx-auto mb-1.5 text-primary" />
+              <p className="font-medium">Entrega</p>
               <p className="text-muted-foreground text-xs">Para todo Brasil</p>
             </div>
           </div>

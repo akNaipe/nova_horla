@@ -10,19 +10,19 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 // TODO: Replace /favicon.ico with an actual favicon file (16x16 or 32x32 PNG/ICO)
 
 export const metadata: Metadata = {
-  title: "Nova Loja - Sua Loja Virtual",
-  description: "Os melhores produtos com os melhores preços",
+  title: "Nova Horla - Onda Mar",
+  description: "Produtos com a energia do mar — frescor, estilo e qualidade",
   openGraph: {
-    title: "Nova Loja - Sua Loja Virtual",
-    description: "Os melhores produtos com os melhores preços",
+    title: "Nova Horla - Onda Mar",
+    description: "Produtos com a energia do mar — frescor, estilo e qualidade",
     locale: "pt_BR",
     type: "website",
-    siteName: "Nova Loja",
+    siteName: "Nova Horla",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nova Loja - Sua Loja Virtual",
-    description: "Os melhores produtos com os melhores preços",
+    title: "Nova Horla - Onda Mar",
+    description: "Produtos com a energia do mar — frescor, estilo e qualidade",
   },
   robots: {
     index: true,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#2A9D8F",
 };
 
 export default function RootLayout({
