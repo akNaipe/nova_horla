@@ -58,6 +58,338 @@
   }
 }
 
+/* Modern Animations */
+@layer utilities {
+  /* Keyframe animations - performance optimized */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes underline {
+    from {
+      width: 0;
+      left: 0;
+    }
+    to {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(42, 157, 143, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(42, 157, 143, 0);
+    }
+  }
+
+  @keyframes backdrop-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Utility animation classes */
+  .animate-fade-in {
+    animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-slide-right {
+    animation: slide-right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-slide-left {
+    animation: slide-left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-float {
+    animation: float 3s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 1s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2s infinite;
+  }
+
+  /* Stagger animations */
+  .animate-stagger-1 {
+    animation-delay: 0.1s;
+  }
+
+  .animate-stagger-2 {
+    animation-delay: 0.2s;
+  }
+
+  .animate-stagger-3 {
+    animation-delay: 0.3s;
+  }
+
+  .animate-stagger-4 {
+    animation-delay: 0.4s;
+  }
+
+  .animate-stagger-5 {
+    animation-delay: 0.5s;
+  }
+
+  /* Hover animations */
+  .hover-scale {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .hover-scale:hover {
+    @apply scale-105;
+  }
+
+  .hover-scale-sm {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .hover-scale-sm:hover {
+    @apply scale-103;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-2 shadow-lg;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-glow:hover {
+    @apply shadow-md shadow-primary/20;
+  }
+
+  /* Button hover states */
+  .btn-hover {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .btn-hover:hover {
+    @apply scale-105;
+  }
+
+  .btn-hover:active {
+    @apply scale-95;
+  }
+
+  /* Link animations */
+  .link-underline {
+    @apply relative inline-block;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 ease-out;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Form animations */
+  .input-focus {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .input-focus:focus {
+    @apply ring-2 ring-primary/20 border-primary;
+  }
+
+  /* Card hover animation */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-2 shadow-lg;
+  }
+
+  /* Image animations */
+  .img-fade-in {
+    animation: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .img-zoom-hover {
+    @apply transition-transform duration-500 ease-out overflow-hidden;
+  }
+
+  .img-zoom-hover:hover {
+    @apply scale-110;
+  }
+
+  /* Accessibility - respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Modal animations */
+  .modal-backdrop {
+    animation: backdrop-fade 0.3s ease-out;
+  }
+
+  .modal-content {
+    animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Mobile menu slide */
+  .menu-slide-in {
+    animation: slide-right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .menu-slide-out {
+    animation: slide-left 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Scroll reveal - applied via JavaScript */
+  .reveal {
+    opacity: 0;
+  }
+
+  .reveal.active {
+    @apply animate-slide-up;
+  }
+
+  /* Loading skeleton */
+  .skeleton {
+    @apply bg-muted animate-pulse rounded;
+  }
+
+  /* Success/Error message animations */
+  .message-enter {
+    animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .message-exit {
+    animation: slide-down 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
 @layer utilities {
   .wave-divider {
     background: linear-gradient(

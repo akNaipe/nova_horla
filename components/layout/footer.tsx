@@ -2,7 +2,7 @@ import { Waves } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t py-8 mt-12 wave-divider">
+    <footer className="animate-fade-in border-t py-8 mt-12 wave-divider">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -17,9 +17,9 @@ export function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-3">Navegue</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="/loja" className="hover:text-primary">Todos os Produtos</a></li>
-              <li><a href="/carrinho" className="hover:text-primary">Carrinho</a></li>
-              <li><a href="/auth/login" className="hover:text-primary">Minha Conta</a></li>
+              <li><a href="/loja" className="link-underline">Todos os Produtos</a></li>
+              <li><a href="/carrinho" className="link-underline">Carrinho</a></li>
+              <li><a href="/auth/login" className="link-underline">Minha Conta</a></li>
             </ul>
           </div>
           <div>

@@ -72,16 +72,17 @@ export default async function HomePage() {
 
       {/* Categorias - simples em linha */}
       {categorias.length > 0 && (
-        <section className="container max-w-4xl mb-10">
+        <section className="container max-w-4xl mb-10 animate-slide-up animate-stagger-1">
           <div className="flex flex-wrap gap-2 justify-center">
-            <Link href="/loja" className="px-4 py-1.5 rounded-full text-sm border hover:bg-accent transition-colors">
+            <Link href="/loja" className="px-4 py-1.5 rounded-full text-sm border link-underline hover-scale transition-colors">
               Todos
             </Link>
-            {categorias.map((cat) => (
+            {categorias.map((cat, i) => (
               <Link
                 key={cat.id}
                 href={`/loja?categoria=${cat.id}`}
-                className="px-4 py-1.5 rounded-full text-sm border hover:bg-accent transition-colors"
+                className="px-4 py-1.5 rounded-full text-sm border link-underline hover-scale transition-colors"
+                style={{animationDelay: `${0.2 + i * 0.1}s`}}
               >
                 {cat.nome}
               </Link>
@@ -92,24 +93,28 @@ export default async function HomePage() {
 
       {/* Destaques */}
       <section className="container max-w-6xl mb-10">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-semibold animate-glow">Destaques</h2>
-          <Link href="/loja" className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1 link-animated">
-            Ver tudo <ArrowRight className="h-3 w-3" />
+        <div className="flex items-center justify-between mb-5 animate-slide-up animate-stagger-2">
+          <h2 className="text-xl font-semibold">Destaques</h2>
+          <Link href="/loja" className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1 link-underline">
+            Ver tudo <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
         {produtos.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {produtos.map((produto, i) => (
-              <div key={produto.id} style={{animation: `slideInWave 0.6s ease-out ${i * 0.1}s both`}}>
-                <div className="card-wave">
+              <div
+                key={produto.id}
+                className="animate-slide-up"
+                style={{animationDelay: `${0.3 + i * 0.08}s`}}
+              >
+                <div className="card-hover">
                   <ProdutoCard produto={produto} />
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 text-muted-foreground">
+          <div className="text-center py-12 text-muted-foreground animate-fade-in">
             <ShoppingBag className="h-8 w-8 mx-auto mb-2 opacity-50" />
             <p>Nenhum destaque no momento.</p>
           </div>
@@ -117,7 +122,7 @@ export default async function HomePage() {
       </section>
 
       {/* Info com ícones de onda */}
-      <section className="border-t wave-divider wave-container">
+      <section className="border-t wave-divider">
         <div className="container max-w-4xl py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
             {[
@@ -128,8 +133,12 @@ export default async function HomePage() {
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="p-3 card-wave" style={{animation: `slideInWave 0.6s ease-out ${0.8 + i * 0.1}s both`}}>
-                  <Icon className="h-5 w-5 mx-auto mb-1.5 text-primary animate-wave" />
+                <div
+                  key={i}
+                  className="p-3 card-hover animate-slide-up"
+                  style={{animationDelay: `${0.4 + i * 0.1}s`}}
+                >
+                  <Icon className="h-5 w-5 mx-auto mb-1.5 text-primary hover-scale transition-transform" />
                   <p className="font-medium">{item.title}</p>
                   <p className="text-muted-foreground text-xs">{item.desc}</p>
                 </div>

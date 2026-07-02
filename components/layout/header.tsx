@@ -47,7 +47,7 @@ export function Header() {
   const isAdmin = user?.user_metadata?.is_admin === true;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="animate-fade-in sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl">
           <Waves className="h-6 w-6 text-primary" />
@@ -56,11 +56,11 @@ export function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-primary">Home</Link>
-          <Link href="/loja" className="text-sm font-medium hover:text-primary">Loja</Link>
-          <Link href="/carrinho" className="text-sm font-medium hover:text-primary">Carrinho</Link>
+          <Link href="/" className="text-sm font-medium link-underline">Home</Link>
+          <Link href="/loja" className="text-sm font-medium link-underline">Loja</Link>
+          <Link href="/carrinho" className="text-sm font-medium link-underline">Carrinho</Link>
           {isAdmin && (
-            <Link href="/admin" className="text-sm font-medium text-blue-600 hover:text-blue-800">Admin</Link>
+            <Link href="/admin" className="text-sm font-medium text-blue-600 link-underline">Admin</Link>
           )}
         </nav>
 

@@ -11,8 +11,8 @@ export function ProdutoCard({ produto }: ProdutoCardProps) {
   const temPromocao = !!produto.preco_promocional;
 
   return (
-    <Link href={`/loja/${produto.slug}`} className="group block card-wave">
-      <div className="aspect-square relative bg-muted rounded-lg overflow-hidden mb-2">
+    <Link href={`/loja/${produto.slug}`} className="group block">
+      <div className="aspect-square relative bg-muted rounded-lg overflow-hidden mb-2 card-hover img-zoom-hover">
         {produto.imagem_url ? (
           <Image
             src={produto.imagem_url}
