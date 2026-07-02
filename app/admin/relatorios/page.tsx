@@ -50,7 +50,7 @@ async function getRelatorios() {
 
   const agg: Record<string, { nome: string; quantidade: number; total: number }> = {};
   for (const item of itens || []) {
-    const nome = item.produto?.nome || "Produto removido";
+    const nome = item.produto?.[0]?.nome || "Produto removido";
     if (!agg[item.produto_id]) agg[item.produto_id] = { nome, quantidade: 0, total: 0 };
     agg[item.produto_id].quantidade += item.quantidade;
     agg[item.produto_id].total += Number(item.subtotal);

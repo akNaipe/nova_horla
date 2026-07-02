@@ -114,7 +114,7 @@ export default async function AdminDashboardPage() {
                   <div key={p.id} className="flex items-center justify-between px-4 py-3 hover:bg-accent/30 transition-colors">
                     <div>
                       <Link href={`/pedidos/${p.id}`} className="text-sm font-medium hover:text-primary">#{p.id.slice(0, 8)}</Link>
-                      <p className="text-[11px] text-muted-foreground">{p.cliente?.nome || "—"}</p>
+                      <p className="text-[11px] text-muted-foreground">{p.cliente?.[0]?.nome || "—"}</p>
                     </div>
                     <div className="text-right flex items-center gap-3">
                       <Badge className={`${statusCfg[p.status]?.color || "bg-gray-500/20"} border-0 text-[10px]`}>{statusCfg[p.status]?.label || p.status}</Badge>

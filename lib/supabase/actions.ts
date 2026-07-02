@@ -98,7 +98,7 @@ export async function listarProdutos(params?: {
   let query = supabase
     .from("produtos")
     .select(
-      "id, nome, slug, preco_venda, preco_promocional, quantidade_estoque, imagem_url, ativo, destaque, data_cadastro, categoria_id, categoria:categorias(id, nome)"
+      "id, nome, slug, descricao, preco_venda, preco_promocional, quantidade_estoque, imagem_url, ativo, destaque, sku, data_cadastro, categoria_id, updated_at, categoria:categorias(id, nome)"
     );
 
   if (params?.apenasAtivos) {
@@ -118,7 +118,7 @@ export async function listarProdutos(params?: {
   });
 
   if (error) return { data: null, error: error.message };
-  return { data: data as Produto[], error: null };
+  return { data: (data as unknown as Produto[]) || [], error: null };
 }
 
 export async function listarProdutosEmDestaque(): Promise<ActionResult<Produto[]>> {
@@ -126,7 +126,7 @@ export async function listarProdutosEmDestaque(): Promise<ActionResult<Produto[]
   const { data, error } = await supabase
     .from("produtos")
     .select(
-      "id, nome, slug, preco_venda, preco_promocional, quantidade_estoque, imagem_url, destaque, data_cadastro, categoria_id, categoria:categorias(id, nome)"
+      "id, nome, slug, descricao, preco_venda, preco_promocional, quantidade_estoque, imagem_url, ativo, destaque, sku, data_cadastro, categoria_id, updated_at, categoria:categorias(id, nome)"
     )
     .eq("ativo", true)
     .eq("destaque", true)
@@ -134,7 +134,7 @@ export async function listarProdutosEmDestaque(): Promise<ActionResult<Produto[]
     .limit(8);
 
   if (error) return { data: null, error: error.message };
-  return { data: data as Produto[], error: null };
+  return { data: (data as unknown as Produto[]) || [], error: null };
 }
 
 export async function obterProduto(slug: string): Promise<ActionResult<Produto>> {
@@ -142,13 +142,13 @@ export async function obterProduto(slug: string): Promise<ActionResult<Produto>>
   const { data, error } = await supabase
     .from("produtos")
     .select(
-      "id, nome, slug, descricao, preco_venda, preco_promocional, quantidade_estoque, imagem_url, ativo, destaque, sku, data_cadastro, categoria_id, categoria:categorias(id, nome, slug)"
+      "id, nome, slug, descricao, preco_venda, preco_promocional, quantidade_estoque, imagem_url, ativo, destaque, sku, data_cadastro, categoria_id, updated_at, categoria:categorias(id, nome, slug)"
     )
     .eq("slug", slug)
     .single();
 
   if (error) return { data: null, error: error.message };
-  return { data: data as Produto, error: null };
+  return { data: (data as unknown as Produto) || null, error: null };
 }
 
 export async function criarProduto(data: {
@@ -339,7 +339,7 @@ export async function listarPedidos(): Promise<ActionResult<Pedido[]>> {
     .order("created_at", { ascending: false });
 
   if (error) return { data: null, error: error.message };
-  return { data: data as Pedido[], error: null };
+  return { data: (data as unknown as Pedido[]) || [], error: null };
 }
 
 export async function listarMeusPedidos(
@@ -355,7 +355,7 @@ export async function listarMeusPedidos(
     .order("created_at", { ascending: false });
 
   if (error) return { data: null, error: error.message };
-  return { data: data as Pedido[], error: null };
+  return { data: (data as unknown as Pedido[]) || [], error: null };
 }
 
 export async function obterPedido(id: string): Promise<ActionResult<Pedido>> {
@@ -369,7 +369,7 @@ export async function obterPedido(id: string): Promise<ActionResult<Pedido>> {
     .single();
 
   if (error) return { data: null, error: error.message };
-  return { data: data as Pedido, error: null };
+  return { data: (data as unknown as Pedido) || null, error: null };
 }
 
 export async function atualizarStatusPedido(
@@ -480,7 +480,7 @@ export async function produtosMaisVendidos(): Promise<
     { nome: string; quantidade: number; total: number }
   > = {};
   for (const item of data) {
-    const nome = (item.produto as { nome: string } | null)?.nome || "Produto removido";
+    const nome = (item.produto as unknown as Array<{ nome: string }>)?.[0]?.nome || "Produto removido";
     const key = String(item.produto_id);
     if (!agg[key]) {
       agg[key] = { nome, quantidade: 0, total: 0 };

@@ -30,7 +30,7 @@ async function getRelacionados(categoriaId: string | null, produtoId: number) {
   const supabase = await createClient();
   const { data } = await supabase
     .from("produtos")
-    .select("id, nome, slug, preco_venda, preco_promocional, quantidade_estoque, imagem_url, destaque, data_cadastro, categoria_id")
+    .select("id, nome, slug, descricao, preco_venda, preco_promocional, quantidade_estoque, imagem_url, ativo, destaque, sku, data_cadastro, categoria_id, updated_at")
     .eq("ativo", true)
     .eq("categoria_id", categoriaId)
     .neq("id", produtoId)

@@ -24,7 +24,7 @@ export function Variacoes({ produtoId, precoBase, onVariacaoChange }: VariacoesP
 
   if (!variacoes.length) return null;
 
-  const tipos = [...new Set(variacoes.map((v) => v.tipo))];
+  const tipos = Array.from(new Set(variacoes.map((v) => v.tipo)));
 
   const handleSelect = (tipo: string, valor: string) => {
     const novo = { ...selected, [tipo]: valor };

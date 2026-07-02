@@ -12,11 +12,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { createClient } from "@/lib/supabase/client";
 import { formatCurrency } from "@/lib/utils";
 import type { CarrinhoItem, Cliente } from "@/types";
+import type { User } from "@supabase/supabase-js";
 
 export default function CheckoutPage() {
   const [itens, setItens] = useState<CarrinhoItem[]>([]);
   const [cliente, setCliente] = useState<Cliente | null>(null);
-  const [user, setUser] = useState<unknown>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
